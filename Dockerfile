@@ -1,36 +1,19 @@
-# Используем базовый образ Ubuntu
-FROM ubuntu:20.04
+# Используем базовый образ Python
+FROM python:3.10.12
 
-# Устанавливаем часовой пояс (например, Europe/Moscow)
-ENV TZ=Europe/Moscow
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Устанавливаем зависимости
-RUN apt-get update && apt-get install -y \
-    pkg-config \
-    python3 \
-    python3-pip \
-    mysql-server \
-    libmysqlclient-dev
+# Устанавливаем необходимые системные зависимости
+RUN apt-get update && apt-get install -y pipenv pkg-config default-libmysqlclient-dev
 
 # Копируем код приложения
 COPY . /app
 WORKDIR /app
 
-# Устанавливаем Python-зависимости
-RUN pip3 install -r requirements.txt
-
-# Настраиваем MySQL
-RUN service mysql start && \
-    mysql -e "CREATE DATABASE std_2414_exam;" && \
-    mysql -e "CREATE USER 'root'@'%' IDENTIFIED BY '12345';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON std_2414_exam.* TO 'root'@'%';" && \
-    mysql -e "FLUSH PRIVILEGES;"
+# Устанавливаем зависимости из requirements.txt
+RUN pipenv install -r requirements.txt
 
 # Устанавливаем переменные окружения для Flask
-ENV FLASK_APP=app/app.py
-ENV FLASK_ENV=development
+RUN pipenv run flask db init && pipenv run flask db migrate -m "Initial migration." && pipenv run flask db upgrade
 
 # Запускаем MySQL и Flask-приложение
-CMD service mysql start && flask run --host=0.0.0.0
+CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0", "--port=5000"]
 
