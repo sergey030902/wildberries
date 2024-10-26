@@ -6,13 +6,14 @@ RUN apt-get update && apt-get install -y pipenv pkg-config default-libmysqlclien
 
 # Копируем код приложения
 COPY . /app
-WORKDIR /app
+WORKDIR ./app
 
 # Устанавливаем зависимости из requirements.txt
 RUN pipenv install -r requirements.txt
 
+WORKDIR ./app
+
 # Устанавливаем переменные окружения для Flask
-RUN pipenv run flask db init && pipenv run flask db migrate -m "Initial migration." && pipenv run flask db upgrade
 
 # Запускаем MySQL и Flask-приложение
 CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0", "--port=5000"]
