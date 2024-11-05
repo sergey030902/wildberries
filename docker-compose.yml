@@ -11,13 +11,17 @@ services:
       MYSQL_DATABASE: std_2414_exam
     volumes:
       - mysql_data:/var/lib/mysql
-      - database.sql:/docker-entrypoint-initdb.d/databse.sql
+      - ./app/database.sql:/docker-entrypoint-initdb.d/database.sql
+      - ./app/init.sh:/docker-entrypoint-initdb.d/init.sh  # Добавляем скрипт
     ports:
-      - "3310:3310"
+      - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
+      interval: 3s
       retries: 10
+    command: ["/bin/bash", "/docker-entrypoint-initdb.d/init.sh"]  # Запуск скрипта при старте
+
 
 
   web:

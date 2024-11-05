@@ -1,5 +1,5 @@
 -- MySQL dump 10.13  Distrib 8.4.0, for Win64 (x86_64)
-CREATE DATABASE std_2414_exam;
+CREATE DATABASE if not exists std_2414_exam;
 USE std_2414_exam;
 -- Host: 127.0.0.1:3310    Database: std_2414_exam
 -- ------------------------------------------------------

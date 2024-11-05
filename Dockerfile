@@ -11,6 +11,7 @@ WORKDIR ./app
 # Устанавливаем зависимости из requirements.txt
 RUN pipenv install -r requirements.txt
 
+
 WORKDIR ./app
 
 # Устанавливаем переменные окружения для Flask

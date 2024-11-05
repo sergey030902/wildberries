@@ -1,5 +1,6 @@
-from app import *
-from config import *
-import flask
-with flask.app_context():
-    db.create_all()
+from app import app  # Импортируйте объект приложения
+from config import *  # Если требуется, импортируйте конфигурацию
+from app import db    # Импортируйте объект базы данных, если нужно
+
+with app.app_context():  # Используйте контекст вашего приложения
+    db.create_all()  # Создание всех таблиц
