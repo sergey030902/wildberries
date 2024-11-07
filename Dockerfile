@@ -2,7 +2,7 @@
 FROM python:3.10.12
 
 # Устанавливаем необходимые системные зависимости
-RUN apt-get update && apt-get install -y pipenv pkg-config default-libmysqlclient-dev
+RUN apt-get update && apt-get install -y pipenv pkg-config default-libmysqlclient-dev iputils-ping
 
 # Копируем код приложения
 COPY . /app

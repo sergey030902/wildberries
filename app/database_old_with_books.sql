@@ -1,13 +1,14 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
---
--- Host: localhost    Database: std_2414_exam
+-- MySQL dump 10.13  Distrib 8.4.0, for Win64 (x86_64)
+CREATE DATABASE if not exists std_2414_exam;
+USE std_2414_exam;
+-- Host: 127.0.0.1:3310    Database: std_2414_exam
 -- ------------------------------------------------------
 -- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -34,7 +35,7 @@ CREATE TABLE `books` (
   PRIMARY KEY (`id`),
   KEY `cover` (`cover`),
   CONSTRAINT `books_ibfk_1` FOREIGN KEY (`cover`) REFERENCES `covers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +44,7 @@ CREATE TABLE `books` (
 
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (1,'Стол','стол',2024,NULL,NULL,NULL,1),(2,'стул','супер стул',2023,NULL,NULL,NULL,2);
+INSERT INTO `books` VALUES (1,'Поколение П','За годы, прошедшие с момента выхода этого романа, в стране изменилось многое: исчезло ощущение безвластия, сменились заказчики и производители рекламы, «криэйторов» стали называть «копирайтерами», компьютерная реальность сделалась важнее телевизионной. Но не изменился культовый статус романа «Generation П»: несмотря на самую тесную связь со своим поколением и своей эпохой, притчевое начало в нем оказалось сильнее сиюминутного. Молодые люди по-прежнему узнают себя в Вавилене Татарском, а спиритические сеансы с команданте Че открывают им истину о природе человека и социума. ',1999,'    Азбука','Пелевин Виктор',320,1),(2,'Оно','В маленьком провинциальном городке Дерри много лет назад семерым подросткам пришлось столкнуться с кромешным ужасом - живым воплощением ада.\nПрошли годы... Подростки повзрослели, и ничто, казалось, не предвещало новой беды. Но кошмар прошлого вернулся, неведомая сила повлекла семерых друзей назад, в новую битву со Злом. Ибо в Дерри опять льется кровь, и бесследно исчезают люди. Ибо вернулось порождение ночного кошмара, настолько невероятное, что даже не имеет имени...',1986,'АСТ','Стивен Кинг',1184,2),(3,'Sapiens. Краткая история человечества','Сто тысяч лет назад Homo sapiens был одним из как минимум шести видов человека, живших на этой планете, - ничем не примечательным животным, которое играло в экосистеме роль не большую, чем гориллы, светлячки или медузы. Но около семидесяти тысяч лет назад загадочное изменение когнитивных способностей Homo sapiens превратило его в хозяина планеты и кошмар экосистемы. Как человек разумный сумел покорить мир? Что стало с другими видами человека? Когда и почему появились деньги, государства и религия? Как возникали и рушились империи? Почему почти все общества ставили женщин ниже мужчин? Как наука и капитализм стали господствующими вероучениями современной эры? Становились ли люди с течением времени счастливее? Какое будущее нас ожидает?',2022,'Синдбад','Харари Юваль',512,3);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +64,7 @@ CREATE TABLE `books_and_genres` (
   KEY `genre` (`genre`),
   CONSTRAINT `books_and_genres_ibfk_1` FOREIGN KEY (`book`) REFERENCES `books` (`id`) ON DELETE CASCADE,
   CONSTRAINT `books_and_genres_ibfk_2` FOREIGN KEY (`genre`) REFERENCES `genres` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +73,7 @@ CREATE TABLE `books_and_genres` (
 
 LOCK TABLES `books_and_genres` WRITE;
 /*!40000 ALTER TABLE `books_and_genres` DISABLE KEYS */;
-INSERT INTO `books_and_genres` VALUES (1,1,5),(2,2,5);
+INSERT INTO `books_and_genres` VALUES (1,1,3),(2,2,3),(3,3,8),(4,3,9);
 /*!40000 ALTER TABLE `books_and_genres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +90,7 @@ CREATE TABLE `covers` (
   `mime_type` varchar(100) DEFAULT NULL,
   `md5_hash` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +99,7 @@ CREATE TABLE `covers` (
 
 LOCK TABLES `covers` WRITE;
 /*!40000 ALTER TABLE `covers` DISABLE KEYS */;
-INSERT INTO `covers` VALUES (1,'0помощи.png','image/png','8d518eefb37114760f7b7d7c25d875dc'),(2,'0CltaHGizTY.jpg','image/jpeg','ec15bc33260db7c81cd86006b00bfaf5');
+INSERT INTO `covers` VALUES (1,'gen_p.webp','image/webp','5fdc68b2dd0bb3a25b7a8b2cd9293545'),(2,'it.webp','image/webp','c1f0856a1b03e31b7281af58cac2023c'),(3,'sapiens.webp','image/webp','a5746939a39baa538def2534487c3170');
 /*!40000 ALTER TABLE `covers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +123,7 @@ CREATE TABLE `genres` (
 
 LOCK TABLES `genres` WRITE;
 /*!40000 ALTER TABLE `genres` DISABLE KEYS */;
-INSERT INTO `genres` VALUES (1,'техника'),(2,'хоз товары'),(3,'обувь'),(4,'аксессуары'),(5,'мебель'),(6,'зоотовары'),(7,'спорт'),(8,'книги'),(9,'канцтовары'),(10,'автотовары'),(11,'одежда');
+INSERT INTO `genres` VALUES (1,'эпопея'),(2,'эпос'),(3,'роман'),(4,'повесть'),(5,'новелла'),(6,'рассказ'),(7,'пьеса'),(8,'очерк'),(9,'эссе'),(10,'опус'),(11,'ода');
 /*!40000 ALTER TABLE `genres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +149,7 @@ CREATE TABLE `reviews` (
   CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`book`) REFERENCES `books` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user`) REFERENCES `users` (`id`),
   CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`status`) REFERENCES `statuses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +158,7 @@ CREATE TABLE `reviews` (
 
 LOCK TABLES `reviews` WRITE;
 /*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
-INSERT INTO `reviews` VALUES (1,1,3,5,'найс','2024-10-04',1);
+INSERT INTO `reviews` VALUES (1,3,1,5,'**очень интересно**','2024-06-23',2),(2,1,1,5,'рекомендую','2024-06-23',2),(3,2,1,4,'хорошая книга но страшно. оценка 4','2024-06-23',2);
 /*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,4 +251,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-26 10:40:04
+-- Dump completed on 2024-06-23 18:31:05
