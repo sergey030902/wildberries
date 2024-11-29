@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y pipenv pkg-config default-libmysqlclien
 
 # Копируем код приложения
 COPY . /app
-WORKDIR ./app
+WORKDIR .
 
 # Устанавливаем зависимости из requirements.txt
 
