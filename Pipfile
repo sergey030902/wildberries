@@ -27,5 +27,6 @@ typing-extensions = "==4.12.2"
 webencodings = "==0.5.1"
 werkzeug = "==3.0.3"
 pytest-flask = "*"
+sqlfluff = "*"
 
 [dev-packages]
