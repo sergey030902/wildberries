@@ -9,13 +9,16 @@ COPY . /app
 WORKDIR ./app
 
 # Устанавливаем зависимости из requirements.txt
-RUN pipenv install -r requirements.txt
 
+RUN pipenv install -r requirements.txt
+RUN pipenv install pytest
 
 WORKDIR ./app
 
 # Устанавливаем переменные окружения для Flask
 
 # Запускаем MySQL и Flask-приложение
+ENV PYTHONPATH=/app
+
 CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0", "--port=5000"]
 

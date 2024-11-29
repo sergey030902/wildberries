@@ -26,7 +26,7 @@ CREATE TABLE `books` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `description` text,
-  `year` year DEFAULT NULL,
+  `year` int DEFAULT NULL,
   `publishing_house` varchar(100) DEFAULT NULL,
   `author` varchar(100) DEFAULT NULL,
   `pages` int DEFAULT NULL,

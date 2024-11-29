@@ -34,12 +34,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - web:/app
+
 
 
   
 volumes:
   mysql_data:
-  web:
   database.sql:
