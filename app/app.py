@@ -8,13 +8,13 @@ import markdown
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.mysql import YEAR
 from sqlalchemy.sql import func
-from sqlalchemy.orm import backref, sessionmaker
+from sqlalchemy.orm import backref
 import traceback
 from .models import Users, Books, Reviews, Genres, BooksAndGenres, Covers
 from .config import Config
 from .extension import db, login_manager
 
-Session = sessionmaker(bind=engine, expire_on_commit=False)
+
 
 def  create_app(type=Config):
     app = Flask(__name__)
@@ -81,8 +81,8 @@ def  create_app(type=Config):
         else:
             can_write_review = False
 
-        # return render_template('view.html', book=book, genres=genres, reviews=reviews, can_write_review=can_write_review, md=markdown.markdown)
-        return "Hello world"
+        return render_template('view.html', book=book, genres=genres, reviews=reviews, can_write_review=can_write_review, md=markdown.markdown)
+
     @app.route('/write_review/<int:id>', methods=['GET','POST'])
     @login_required
     def write_review(id):

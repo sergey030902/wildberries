@@ -5,13 +5,13 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: 55555
-      MYSQL_ROOT_PASSWORD: 12345
-      MYSQL_DATABASE: std_2414_exam
+      MYSQL_USER: ${MYSQLUSER}
+      MYSQL_PASSWORD: ${MYSQLPASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQLROOTPASSWORD}
+      MYSQL_DATABASE: ${MYSQLDATABASE}
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./app/database.sql:/docker-entrypoint-initdb.d/database.sql
+      - ./app/database/database.sql:/docker-entrypoint-initdb.d/database.sql
       #- ./app/init.sh:/docker-entrypoint-initdb.d/init.sh  # Добавляем скрипт
     ports:
       - "3306:3306"
