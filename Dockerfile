@@ -10,7 +10,7 @@ WORKDIR ./app
 
 # Устанавливаем зависимости из requirements.txt
 
-RUN pipenv install -r requirements.txt
+RUN pipenv install Pipfile
 RUN pipenv install pytest
 
 WORKDIR ./app
