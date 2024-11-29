@@ -6,11 +6,11 @@ RUN apt-get update && apt-get install -y pipenv pkg-config default-libmysqlclien
 
 # Копируем код приложения
 COPY . /app
-WORKDIR .
+WORKDIR ./app
 
 # Устанавливаем зависимости из requirements.txt
 
-RUN pipenv install Pipfile
+RUN pipenv install ../Pipfile
 RUN pipenv install pytest
 
 WORKDIR ./app
