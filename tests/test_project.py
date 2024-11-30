@@ -159,73 +159,73 @@ def test_user_creation(init_database):
      assert user.name == 'Test'
 
 
-# def test_create_book(init_database):
-#     user, book = init_database
-#     assert book.name == 'Test Book'
-#     assert book.year == 2024
-#     assert book.author == 'Test Author'
-#
-
-# def test_review_creation(init_database):
-#     user, book = init_database
-#     review = Reviews.query.filter_by(book=book.id).first()
-#     assert review.text == 'Great book'
-#     assert review.grade == 5
-
-#
-# def test_check_user_password(init_database):
-#     user, book = init_database
-#     assert user.check_password('hashedpassword') is True
+def test_create_book(init_database):
+    user, book = init_database
+    assert book.name == 'Test Book'
+    assert book.year == 2024
+    assert book.author == 'Test Author'
 
 
-    # def test_check_user_full_name(init_database):
-    #     user, book = init_database
-    #     assert user.full_name == 'User Test'
-    #
-
-# def test_book_has_genre(init_database):
-#     user, book = init_database
-#     book_genre = BooksAndGenres.query.filter_by(book=book.id).first()
-#     assert book_genre is not None
+def test_review_creation(init_database):
+    user, book = init_database
+    review = Reviews.query.filter_by(book=book.id).first()
+    assert review.text == 'Great book'
+    assert review.grade == 5
 
 
-# def test_review_status(init_database):
-#     user, book = init_database
-#     review = Reviews.query.filter_by(book=book.id).first()
-#     assert review.status == 2
-#
-#
-# def test_is_admin(init_database):
-#     user, book = init_database
-#     assert user.is_admin is False
+def test_check_user_password(init_database):
+    user, book = init_database
+    assert user.check_password('hashedpassword') is True
 
 
-# def test_view_route(client, init_database):
-#     user, book = init_database
-#     response = client.get(f'/view/{book.id}')
-#     assert response.status_code == 200
-#     assert b'Test Book' in response.data
-#
+    def test_check_user_full_name(init_database):
+        user, book = init_database
+        assert user.full_name == 'User Test'
+    
 
-# def test_write_review_route(client, init_database):
-#     user, book = init_database
-#     client.post('/login', data={'login': 'testuser', 'password': 'hashedpassword'})  # login user
-#     response = client.get(f'/write_review/{book.id}')
-#     assert response.status_code == 200
+def test_book_has_genre(init_database):
+    user, book = init_database
+    book_genre = BooksAndGenres.query.filter_by(book=book.id).first()
+    assert book_genre is not None
 
 
+def test_review_status(init_database):
+    user, book = init_database
+    review = Reviews.query.filter_by(book=book.id).first()
+    assert review.status == 2
 
-# def test_delete_book_route(client, init_database):
-#     user, book = init_database
-#     client.post('/login', data={'login': 'testuser', 'password': 'hashedpassword'})  # login user
-#     response = client.get(f'/delete/{book.id}')
-#     assert response.status_code == 302  # redirect after delete
-#
-#
-# def test_edit_book_route(client, init_database):
-#     user, book = init_database
-#     client.post('/login', data={'login': 'testuser', 'password': 'hashedpassword'})
-#     response = client.get(f'/edit/{book.id}')
-#     assert response.status_code == 200
-#     assert b'Edit Book' in response.data
+
+def test_is_admin(init_database):
+    user, book = init_database
+    assert user.is_admin is False
+
+
+def test_view_route(client, init_database):
+    user, book = init_database
+    response = client.get(f'/view/{book.id}')
+    assert response.status_code == 200
+    assert b'Test Book' in response.data
+
+
+def test_write_review_route(client, init_database):
+    user, book = init_database
+    client.post('/login', data={'login': 'testuser', 'password': 'hashedpassword'})  # login user
+    response = client.get(f'/write_review/{book.id}')
+    assert response.status_code == 200
+
+
+
+def test_delete_book_route(client, init_database):
+    user, book = init_database
+    client.post('/login', data={'login': 'testuser', 'password': 'hashedpassword'})  # login user
+    response = client.get(f'/delete/{book.id}')
+    assert response.status_code == 302  # redirect after delete
+
+
+def test_edit_book_route(client, init_database):
+    user, book = init_database
+    client.post('/login', data={'login': 'testuser', 'password': 'hashedpassword'})
+    response = client.get(f'/edit/{book.id}')
+    assert response.status_code == 200
+    assert b'Edit Book' in response.data
 
