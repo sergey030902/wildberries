@@ -138,7 +138,7 @@ def test_login_required_on_protected_routes(client, init_database):
         raise
 
 
-def test_paginate_books(client, init_database):
+def test_paginate_books_error(client, init_database):
     """Тест пагинации книг"""
     description = "Тест пагинации на главной странице"
     user, book = init_database
