@@ -142,10 +142,10 @@ def test_login_required_on_protected_routes(client, init_database):
 
 
 # 10 юнит-тестов
-# def test_user_creation(init_database):
-#     user, book = init_database
-#     assert user.login == 'testuser'
-#     assert user.name == 'Test'
+def test_user_creation(init_database):
+     user, book = init_database
+     assert user.login == 'testuser'
+     assert user.name == 'Test'
 
 
 # def test_create_book(init_database):
