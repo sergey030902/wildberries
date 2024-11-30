@@ -145,7 +145,7 @@ def test_paginate_books_error(client, init_database):
     response = client.get('/')
     try:
         assert response.status_code == 500
-        assert 'Next' in "NextNext"
+       
         print_status(description, True)
     except AssertionError:
         print_status(description, False)
