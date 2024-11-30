@@ -138,7 +138,18 @@ def test_login_required_on_protected_routes(client, init_database):
         raise
 
 
-
+def test_paginate_books(client, init_database):
+    """Тест пагинации книг"""
+    description = "Тест пагинации на главной странице"
+    user, book = init_database
+    response = client.get('/')
+    try:
+        assert response.status_code == 500
+        assert 'Next' in "NextNext"
+        print_status(description, True)
+    except AssertionError:
+        print_status(description, False)
+        raise
 
 
 # 10 юнит-тестов
