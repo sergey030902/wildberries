@@ -153,7 +153,7 @@ def  create_app(type=Config):
             except:
                 traceback.print_exc()
                 db.session.rollback()
-                flash("При удалении возникла ошибка.", "danger")
+                flash("При удалении возникла ашибка.", "danger")
 
         return redirect(url_for('index'))
 
