@@ -15,6 +15,9 @@ RUN pipenv install pytest
 
 WORKDIR ./app
 
+
+
+
 # Устанавливаем переменные окружения для Flask
 
 # Запускаем MySQL и Flask-приложение
