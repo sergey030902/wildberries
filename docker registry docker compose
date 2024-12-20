@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  registry:
+    image: registry:2
+    container_name: private-registry
+    ports:
+      - 5000:5000
+    environment:
+      - REGISTRY_AUTH=htpasswd
+      - REGISTRY_AUTH_HTPASSWD_REALM=basic-realm
+      - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+    volumes:
+      - registry-data:/var/lib/registry
+      - ./auth:/auth
+      - ./config.yaml:/etc/docker/registry/config.yml
+
+  mirror:
+    image: registry:2
+    container_name: registry-mirror
+    ports:
+      - 5555:5000
+    environment:
+      - REGISTRY_PROXY_REMOTEURL=https://registry-1.docker.io
+    volumes:
+      - mirror-data:/var/lib/registry
+
+volumes:
+  registry-data:
+  mirror-data:
