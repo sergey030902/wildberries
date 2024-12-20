@@ -1,0 +1,31 @@
+pipeline {
+    agent {
+        label 'client1'
+    }
+    
+
+    environment {
+ 
+        DOCKERHUB = credentials('LOCAL_REGISTRY')
+     
+    }
+
+
+
+    stages {
+        stage('Starting Local Registry') {
+            steps {
+                
+                
+                script {
+                    sh 'pwd'
+                    
+                    sh 'docker compose -f /home/prod/Desktop/docker_local_registry/docker-compose.yaml up -d' 
+                    sh 'docker login localhost:5555 -u $DOCKERHUB_USR -p $DOCKERHUB_PSW'
+                   
+
+                }
+            }
+        }
+    }
+}
