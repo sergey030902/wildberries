@@ -1,0 +1,82 @@
+pipeline {
+    agent {
+        label 'client1'
+    }
+
+    parameters {
+        string(name: 'IMAGE_NAME', defaultValue: 'my-docker-image:latest', description: 'Название Docker образа')
+    }
+
+    environment {
+        DOCKERFILE_PATH = '../wb_build/Dockerfile'  // Путь к Dockerfile
+        TRIVY_REPORT_PATH = 'trivy-report.html'  // Путь к отчету Trivy
+        HADOLINT_REPORT_PATH = 'hadolint-report.txt'  // Путь к отчету Hadolint
+        HTML_TEMPLATE_PATH = '/home/prod/Downloads/html.tpl'  // Путь к шаблону для Trivy
+        REPORT_DIR = '.'  // Директория для отчетов
+        IMAGE_NAME = "${params.IMAGE_NAME}"  // Использование параметра IMAGE_NAME
+    }
+
+    stages {
+        stage('Lint Dockerfile') {
+            steps {
+                script {
+                    echo 'Проверяем Dockerfile с помощью Hadolint...'
+
+                    // Локальный запуск Hadolint
+                    sh "hadolint ${DOCKERFILE_PATH} --no-fail > ${HADOLINT_REPORT_PATH}"
+                }
+            }
+        }
+
+        stage('Scan Image for Vulnerabilities') {
+            steps {
+                script {
+                    echo "Сканируем Docker-образ ${env.IMAGE_NAME} с помощью Trivy..."
+
+                    // Сканирование с использованием Trivy
+                    sh "trivy image --exit-code 0 --format template --template '@${HTML_TEMPLATE_PATH}' -o ${TRIVY_REPORT_PATH} ${env.IMAGE_NAME}"
+                }
+            }
+        }
+
+        stage('Publish Reports') {
+            steps {
+                script {
+                    echo 'Публикуем отчеты...'
+
+                    // Публикация отчета Hadolint
+                    archiveArtifacts artifacts: "${HADOLINT_REPORT_PATH}", fingerprint: true
+                    archiveArtifacts artifacts: "${TRIVY_REPORT_PATH}", fingerprint: true
+
+                    // Пример публикации HTML-отчетов (если настроены HTML-конвертеры)
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: "${REPORT_DIR}",
+                        reportFiles: "${HADOLINT_REPORT_PATH}",
+                        reportName: 'Hadolint Report'
+                    ])
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: "${REPORT_DIR}",
+                        reportFiles: "${TRIVY_REPORT_PATH}",
+                        reportName: 'Trivy Report'
+                    ])
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo 'Сборка завершилась с ошибкой.'
+        }
+
+        success {
+            echo 'Сборка завершена успешно!'
+        }
+    }
+}
